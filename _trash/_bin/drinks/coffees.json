@@ -1,0 +1,170 @@
+{
+  "name": "coffees",
+  "label": "Café",
+  "icon": "local cafe",
+  "color": "brown-10",
+  "css": "bg-brown-10 text-white",
+  "groups": [
+    {
+      "name": "expressos",
+      "label": "Expressos",
+      "icon": "local cafe",
+      "class": "bg-brown-10 text-white",
+      "options": [
+        {
+          "name": "soluble",
+          "leftlabel": "Máquina",
+          "label": "De sobre",
+          "kitchen": "De sobre",
+          "color": "amber",
+          "class": ""
+        },
+        {
+          "name": "iced",
+          "label": "Con hielo",
+          "ticket": "Con hielo",
+          "kitchen": "Con hielo",
+          "icon": "ac unit",
+          "color": "primary",
+          "class": "",
+          "charge": {
+            "currency": "EUR",
+            "value": 0.10
+          }
+        },
+        {
+          "name": "nocaffeine",
+          "label": "Descafeinado",
+          "kitchen": "Descafeinado",
+          "icon": "",
+          "color": "red",
+          "class": ""
+        }
+      ],
+      "products": [
+        {
+          "name": "normal",
+          "label": "Solo",
+          "ticket": "Café solo",
+          "kitchen": "Café solo",
+          "class": "",
+          "price": {
+            "currency": "EUR",
+            "value": 0.90
+          },
+          "options": [
+          ]
+        },
+        {
+          "name": "normal",
+          "label": "Largo",
+          "ticket": "Café solo largo",
+          "kitchen": "Café Largo",
+          "class": "",
+          "price": {
+            "currency": "EUR",
+            "value": 1.20
+          },
+          "options": [
+          ]
+        },
+        {
+          "name": "normal",
+          "label": "Cortado",
+          "ticket": "Café cortado",
+          "kitchen": "Café cortado",
+          "class": "",
+          "price": {
+            "currency": "EUR",
+            "value": 1.00
+          },
+          "options": [
+          ]
+        }
+      ]
+    },
+    {
+      "name": "milkies",
+      "label": "Leche",
+      "icon": "local cafe",
+      "class": "bg-brown-9 text-white",
+      "options": [
+        {
+          "name": "soluble",
+          "leftlabel": "Máquina",
+          "label": "De sobre",
+          "kitchen": "De sobre",
+          "color": "amber",
+          "class": ""
+        }
+      ],
+      "products": [
+        {
+          "name": "normal",
+          "label": "Con leche",
+          "ticket": "Café con leche",
+          "kitchen": "Café con leche",
+          "class": "",
+          "price": {
+            "currency": "EUR",
+            "value": 1.00
+          },
+          "options": [
+            {
+              "name": "cup",
+              "leftlabel": "En taza",
+              "label": "En taza",
+              "kitchen": "En taza",
+              "color": "amber",
+              "class": ""
+            }
+          ]
+        },
+        {
+          "name": "normal",
+          "label": "Bombón",
+          "ticket": "Café bombón",
+          "kitchen": "Café bombón",
+          "class": "",
+          "price": {
+            "currency": "EUR",
+            "value": 1.10
+          },
+          "options": [
+          ]
+        }
+      ]
+    },
+    {
+      "name": "milky",
+      "label": "Con leche",
+      "icon": "local cafe",
+      "class": "bg-brown-9 text-white",
+      "options": [
+        {
+          "name": "soluble",
+          "leftlabel": "Máquina",
+          "label": "De sobre",
+          "kitchen": "De sobre",
+          "color": "amber",
+          "class": ""
+        }
+      ],
+      "products": [
+        {
+          "name": "normal",
+          "label": "Cortado",
+          "ticket": "Café cortado",
+          "kitchen": "Café cortado",
+          "class": "",
+          "price": {
+            "currency": "EUR",
+            "value": 1.00
+          },
+          "options": [
+          ]
+        }
+      ]
+    }
+  ]
+}

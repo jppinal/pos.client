@@ -8,6 +8,16 @@ function load (component) {
   return () => System.import(`@/${component}.vue`)
 }
 
+function mobile (component) {
+  // '@' is aliased to src/components
+  return () => System.import(`src/mobile/${component}.vue`)
+}
+
+function desktop (component) {
+  // '@' is aliased to src/components
+  return () => System.import(`src/desktop/${component}.vue`)
+}
+
 function requireAuth (to, from, next) {
   /* if (localStorage.getItem('feathers-jwt') === null) {
     next({
@@ -44,8 +54,8 @@ export default new VueRouter({
       path: '/',
       component: load('main/layout'),
       children: [
-        {path: 'sales', component: load('main/sales/index')},
-        {path: 'floor', component: load('main/floors/index')}
+        {path: 'ticket', component: mobile('ticket')},
+        {path: 'shopfloor', component: desktop('shopfloor')}
       ],
       beforeEnter: requireAuth
     },

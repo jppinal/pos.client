@@ -1,7 +1,14 @@
 <template lang="pug">
-.col.fit
-  .row.full-width
-    .col.full-height
+.col
+  .row.bg-grey-7.text-white
+    .col-4(style="padding: 15px;")
+      small.block Mesa
+      big.block.text-center XX
+    .col-8(style="padding: 15px;")
+      small.block Total
+      big.block.text-center {{ total.value.toFixed(2) }} {{ total.currency }}
+  .row.bg-grey-3
+    .col
       q-btn.full-width(
         color="secondary"
         style="height: 70px"
@@ -11,7 +18,7 @@
           size="42px"
           )
         span Cobrar
-    .col.full-height
+    .col
       q-btn.full-width(
         flat
         color="grey-7"
@@ -22,13 +29,12 @@
           size="32px"
           )
         span Cuenta
-  .row.full-width.bg-grey-7.text-white(style="padding: 15px;")
-    .col
-      span.on-left
-        small Total
-      big.pull-right {{ total.value.toFixed(2) }} {{ total.currency }}
-  .row.fit
-    lines
+  q-btn.fixed(
+    round
+    color="primary"
+    @click="$router.push('/products')"
+    style="right: 18px; bottom: 18px")
+    q-icon(name="add")
 </template>
 
 <script>
@@ -39,19 +45,15 @@ import {
 
 import { mapState } from 'vuex'
 
-import Lines from './lines'
-
 export default {
-  name: 'ticket',
+  name: 'actions',
   components: {
     QBtn,
-    QIcon,
-    Lines
+    QIcon
   },
   computed: {
     ...mapState('salesTicket', {
-      total: state => state.total,
-      lines: state => state.lines
+      total: state => state.total
     })
   }
 }

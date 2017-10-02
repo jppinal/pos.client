@@ -1,5 +1,5 @@
 <template lang='pug'>
-  q-layout(
+  q-layout.bg-grey-3(
   ref="layout"
   view="hHr Lpr lFr"
   )

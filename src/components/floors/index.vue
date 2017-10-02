@@ -1,5 +1,5 @@
 <template lang="pug">
-.row.absolute-top-left.full-height.full-width.bg-dark(style="overflow: hidden;")
+.row.fit.bg-dark
   q-tabs.fit(color="dark" align="justify" no-pane-border)
     q-tab(
       :icon="r.icon"

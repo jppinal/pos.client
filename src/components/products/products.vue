@@ -37,14 +37,14 @@ export default {
     QIcon
   },
   methods: {
-    ...mapActions('salesLine', ['clearLine', 'setLine']),
+    ...mapActions('line', ['setLine']),
     select ({ product, options }) {
-      product.options = options.filter(c => c)
-      console.log(product)
-      this.clearLine().then((resolve) => {
-        this.setLine(product).then((resolve) => {
-          Events.$emit('openLineModal', { action: 'create' })
-        })
+      var line = Object.assign({}, product)
+      line.options = options.filter(c => {
+        return c !== undefined
+      })
+      this.setLine({ line }).then((resolve) => {
+        Events.$emit('openLineModal', { action: 'create' })
       })
     }
   },

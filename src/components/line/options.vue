@@ -11,7 +11,7 @@
       :icon = "o.icon"
       v-show="o.value")
       span {{ o.label }}
-      small.on-right(v-if="o.charge && o.charge.value > 0") {{ o.charge.value }}  EUR
+      small.on-right(v-if="o.charge && o.charge.value > 0") {{ o.charge.value }}  {{ o.charge.currency }}
     q-btn.on-left(
       @click="activateOption({ option: o })"
       color="grey-7"
@@ -19,7 +19,7 @@
       v-show="!o.value"
       flat)
       span.light-paragraph {{ o.label }}
-      small.on-right(v-if="o.charge && o.charge.value > 0") {{ o.charge.value }}  EUR
+      small.on-right(v-if="o.charge && o.charge.value > 0") {{ o.charge.value }}  {{ o.charge.currency }}
 </template>
 
 <script>
@@ -37,10 +37,10 @@ export default {
     QIcon
   },
   methods: {
-    ...mapActions('salesLine', ['activateOption', 'deactivateOption'])
+    ...mapActions('line', ['activateOption', 'deactivateOption'])
   },
   computed: {
-    ...mapState('salesLine', {
+    ...mapState('line', {
       options: state => state.line.options
     })
   },

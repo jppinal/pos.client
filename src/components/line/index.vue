@@ -1,18 +1,16 @@
 <template lang="pug">
 q-modal(
   ref="lineModal"
-  maximized
   content-classes="bg-light"
   @close="onClose"
   @open="onOpen"
+  maximized
   )
   q-modal-layout
     .col.layout-padding
       .row.full-width.items-center
-          q-icon(:name="line.icon" :color="line.color" size="42px")
-          .on-right
-            big.uppercase.text-center {{ line.ticket }}
-            big.on-right.uppercase.thin-paragraph {{ line.price.value }}  EUR
+        big.uppercase.text-center {{ line.ticket }}
+        .on-right.uppercase.thin-paragraph {{ line.price.value }}  {{ line.price.currency }}
       .row.full-width.layout-padding
         options
       .row.full-width.items-center
@@ -30,7 +28,7 @@ q-modal(
       .on-left.text-right
         .uppercase
           span {{ line.quantity.value }} {{ line.ticket }}
-          small.light-paragraph.on-right {{ line.total.value }}  EUR
+          small.light-paragraph.on-right {{ line.total.value }}  {{ line.total.currency }}
         .uppercase(v-for="o in activeOptions()")
           small.text-grey-7 {{ o.label }}
       q-btn(
@@ -84,10 +82,10 @@ export default {
     Options
   },
   methods: {
-    ...mapActions('salesLine', ['setAction', 'resetOverwrite']),
-    ...mapActions('salesTicket', ['addLine', 'updateLine', 'removeLine']),
+    ...mapActions('line', ['setAction', 'resetOverwrite']),
+    ...mapActions('order', ['addLine', 'updateLine', 'removeLine']),
     saveLine () {
-      this.updateLine({ line: this.line, index: this.lineIndex }).then((resolve) => {
+      this.updateLine({ line: this.line }).then((resolve) => {
         this.$refs.lineModal.close()
       })
     },
@@ -104,14 +102,11 @@ export default {
     }
   },
   computed: {
-    ...mapState('salesLine', {
+    ...mapState('line', {
       line: state => state.line,
       action: state => state.action
     }),
-    ...mapState('salesTicket', {
-      lineIndex: state => state.index
-    }),
-    ...mapGetters('salesLine', [ 'activeOptions' ])
+    ...mapGetters('line', [ 'activeOptions' ])
   },
   data () {
     return {

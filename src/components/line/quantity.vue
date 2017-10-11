@@ -27,7 +27,7 @@ export default {
     QBtn
   },
   methods: {
-    ...mapActions('salesLine', ['addToQuantity', 'resetQuantity', 'setQuantity']),
+    ...mapActions('line', ['addToQuantity', 'resetQuantity', 'setQuantity']),
     changeQuantity ({ quantity, n }) {
       if (this.overwrite) {
         this.setQuantity({ quantity, n })
@@ -38,7 +38,7 @@ export default {
     }
   },
   computed: {
-    ...mapState('salesLine', {
+    ...mapState('line', {
       newline: state => state.line,
       overwrite: state => state.overwrite
     })

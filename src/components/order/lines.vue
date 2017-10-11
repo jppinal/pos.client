@@ -1,10 +1,5 @@
 <template lang="pug">
 .col
-  .row.full-width.bg-grey-7.text-white(style="padding: 15px;")
-    .col
-      span.on-left
-        small Total
-      big.pull-right {{ total.value.toFixed(2) }} {{ total.currency }}
   .row.full-width.bg-white
     .col
       q-list(
@@ -13,23 +8,21 @@
         )
         q-item(
           v-for="(l, i) in lines"
-          :key="l.number"
-          @click="editLine({ index: i })"
+          :key="i"
+          @click="editLine({ line: l })"
           :class="highlight(i)")
           q-item-side
-            strong.on-left {{ l.quantity.value }}
+            big.light-paragraph.text-right.text-black
+              .on-left {{ l.quantity.value }}
           q-item-main
             .row
-              q-icon.on-left(:name="l.icon" :color="l.color")
-              small.uppercase {{ l.ticket }}
+              .uppercase {{ l.ticket }}
             .row
-              small.uppercase.text-teal-6(v-for="(o,oi) in chargeOptions(l)")
-                span(v-if="oi>0") ,
-                span {{ o.value.ticket }}
-            .row
-              small.uppercase.text-grey-6(v-for="(o,oi) in noChargeOptions(l)")
-                span(v-if="oi>0") ,
-                span {{ o.value.kitchen }}
+              small.uppercase(
+                v-for="(o, oi) in activeOptions(l)"
+                :key="oi"
+                style="margin:1px 2px")
+                span(:class="colortext(o.color)") {{ o.label }}
           q-item-side(right)
             span {{ l.total.value.toFixed(2) }}
               small.on-right {{ l.total.currency }}
@@ -44,6 +37,7 @@ import {
   QItemSide,
   QItemMain,
   QScrollArea,
+  QChip,
   Events
 } from 'quasar'
 
@@ -58,14 +52,14 @@ export default {
     QItem,
     QItemSide,
     QItemMain,
-    QScrollArea
+    QScrollArea,
+    QChip
   },
   methods: {
-    ...mapActions('order', ['selectLine', 'upWards', 'downWards', 'removeLine']),
     ...mapActions('line', ['setLine']),
-    editLine ({ index }) {
-      this.setLine({ line: this.lines[index] }).then((resolve) => {
-        Events.$emit('openOptionsModal', { action: 'update' })
+    editLine ({ line }) {
+      this.setLine({ line }).then((resolve) => {
+        Events.$emit('openLineModal', { action: 'update' })
       })
     },
     highlight (i) {
@@ -73,22 +67,16 @@ export default {
         'bg-teal-2': i === Number(this.index)
       }
     },
-    chargeOptions (l) {
-      return l.options.filter((option) => {
-        return option.value.charge
-      })
+    activeOptions (l) {
+      return l.options.filter(o => o.value)
     },
-    noChargeOptions (l) {
-      return l.options.filter((option) => {
-        return !option.value.charge
-      })
+    colortext (c) {
+      return `text-${c}`
     }
   },
   computed: {
     ...mapState('order', {
-      lines: state => state.lines,
-      index: state => state.index,
-      total: state => state.total
+      lines: state => state.lines
     })
   }
 }

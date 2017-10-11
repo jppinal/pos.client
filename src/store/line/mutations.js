@@ -1,53 +1,53 @@
 export const UPDATE_TOTAL = function (state) {
   if (!state.line.price.value || !state.line.quantity.value) return
-  let charges = state.line.options.reduce((value, option) => {
+  var charges = state.line.options.reduce((value, option) => {
     if (option.value) value += option.charge.value
     return value
   }, 0)
-  state.line.total.value = Number((state.line.quantity.value * (state.line.price.value + charges)).toFixed(2))
-  state.line.total.currency = state.line.price.currency
+  state.line.total = {
+    value: Number((state.line.quantity.value * (state.line.price.value + charges)).toFixed(2)),
+    currency: state.line.price.currency
+  }
 }
 
-export const SET_LABEL = function (state, { label }) {
+export const SET_LINE = function (state, line) {
+  state.line = line
+}
+
+export const SET_LABEL = function (state, label) {
   state.line.label = label
 }
 
-export const SET_LINE = function (state, { line }) {
-  state.line = Object.assign({}, line)
-}
-
-export const SET_TICKETLABEL = function (state, { ticket }) {
+export const SET_TICKETLABEL = function (state, ticket) {
   state.line.ticket = ticket
 }
 
-export const SET_KITCHENLABEL = function (state, { kitchen }) {
+export const SET_KITCHENLABEL = function (state, kitchen) {
   state.line.kitchen = kitchen
 }
 
-export const SET_PRICE = function (state, { price }) {
+export const SET_PRICE = function (state, price) {
   state.line.price = price
 }
 
-export const SET_QUANTITY = function (state, { quantity }) {
+export const SET_QUANTITY = function (state, quantity) {
   state.line.quantity = quantity
 }
 
-export const SET_TOTAL = (state, { total }) => {
+export const SET_TOTAL = (state, total) => {
   state.line.total = total
 }
 
-export const SET_ICON = (state, { icon }) => {
+export const SET_ICON = (state, icon) => {
   state.line.icon = icon
 }
 
-export const SET_COLOR = (state, { color }) => {
+export const SET_COLOR = (state, color) => {
   state.line.color = color
 }
 
-export const SET_OPTIONS = function (state, { options }) {
-  state.line.options = options.map((o) => {
-    return Object.assign({}, o)
-  })
+export const SET_OPTIONS = function (state, options) {
+  state.line.options = options
 }
 
 export const SET_OPTION_VALUE = (state, { option, value }) => {

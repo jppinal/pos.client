@@ -6,13 +6,14 @@ import Vuex from 'vuex'
 // import uoms from './uoms-module'
 // import orders from './orders-module'
 // import i18n from './i18n-module'
-import salesLine from './line'
-import salesTicket from './ticket'
+import line from './line'
+import ticket from './ticket'
+import order from './order'
 import products from './products'
 import edit from './edit'
 
 export default function () {
   return new Vuex.Store({
-    modules: { salesLine, salesTicket, products, edit }
+    modules: { line, ticket, order, products, edit }
   })
 }

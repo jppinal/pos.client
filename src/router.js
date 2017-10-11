@@ -55,7 +55,9 @@ export default new VueRouter({
       component: load('main/layout'),
       children: [
         {path: 'ticket', component: mobile('ticket')},
-        {path: 'shopfloor', component: desktop('shopfloor')}
+        {path: 'shopfloor', component: desktop('shopfloor')},
+        {path: 'order', component: mobile('order')},
+        {path: 'orderpanel', component: desktop('order')}
       ],
       beforeEnter: requireAuth
     },

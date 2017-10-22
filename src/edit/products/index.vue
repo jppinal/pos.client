@@ -8,19 +8,24 @@
         q-tabs(color="dark" align="justify" no-pane-border)
           q-tab(
             :icon="c.properties.icon"
-            :name="c.properties.label"
+            :name="c.id"
             slot="title"
             :label="c.properties.label"
             v-for="(c,index) in collections"
-            @select="select({ id: c.id, type: 'collections' })"
+            @click="select({ id: c.id, type: 'collections' })"
             :key="index")
           q-tab(
             icon="add"
+            name="add-collection"
             color="pink"
             slot="title"
-            @select="empty({ type: 'collections' })")
-    .row.full-width(style="padding: 10px;")
-      families
+            @click="add({ type: 'collections' })")
+          q-tab-pane(
+            :name="c.id"
+            v-for="(c,index) in collections"
+            :key="index")
+            .row.full-width
+              families(:collection="c.id")
     .row.full-width
       products
 </template>
@@ -50,19 +55,21 @@ export default {
   },
   created () {
     this.fetch({ type: 'collections' })
+    this.fetch({ type: 'families' })
+
     this.cHandler = () => {
       this.fetch({ type: 'collections' })
+      this.setFamily({ family: {} })
     }
     this.fHandler = () => {
-      this.fetch({ type: 'families', body: { collection_id: this.collection.id } })
+      this.fetch({ type: 'families' })
+      this.setFamily({ family: {} })
     }
-    this.gHandler = () => {
-      this.fetch({ type: 'groups', body: { family_id: this.family.id } }).then((response) => {
-        this.fetchArray({ type: 'groups', array: this.groups })
-      })
+    this.gHandler = ({ family }) => {
+      this.fetch({ type: 'groups', body: { family } })
     }
-    this.pHandler = () => {
-      this.fetchArray({ type: 'groups', array: this.groups })
+    this.pHandler = ({ family }) => {
+      this.fetch({ type: 'products', body: { family } })
     }
     this.$q.events.$on('collections', this.cHandler)
     this.$q.events.$on('families', this.fHandler)
@@ -78,26 +85,19 @@ export default {
     this.$q.events.$off('options', this.oHandler)
   },
   methods: {
-    ...mapActions('products', ['fetch', 'fetchOne', 'fetchArray']),
-    ...mapActions('edit', ['empty', 'setData']),
+    ...mapActions('productsDb', ['fetch', 'setFamily']),
+    ...mapActions('productsEdit', ['empty', 'edit']),
     select ({ id, type }) {
-      this.fetchOne({ id, type }).then((resolve) => {
-        this.fetch({ type: 'families', body: { collection_id: id } }).then((response) => {
-          let f = this.family[0]
-          if (!f) return
-          this.fetch({ type: 'groups', body: { family_id: f.id } }).then((response) => {
-            this.fetchArray({ type: 'groups', array: this.groups })
-          })
-        })
-        this.setData({ data: this.collection, type })
-      })
+      this.edit({ body: { id }, type })
+      this.setFamily({ family: {} })
+    },
+    add ({ type }) {
+      this.empty({ type })
+      this.setFamily({ family: {} })
     }
   },
   computed: {
-    ...mapState('products', {
-      family: state => state.family,
-      groups: state => state.groups,
-      collection: state => state.collection,
+    ...mapState('productsDb', {
       collections: state => state.collections
     })
   },

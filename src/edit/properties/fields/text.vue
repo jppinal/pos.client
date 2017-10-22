@@ -33,7 +33,7 @@ export default {
   methods: {
   },
   computed: {
-    ...mapState('edit', {
+    ...mapState('productsEdit', {
       properties: state => state.data.properties
     })
   },

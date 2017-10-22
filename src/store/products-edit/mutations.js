@@ -2,6 +2,10 @@ export const SET_DATA = function (state, { data }) {
   state.data = data
 }
 
+export const SET_INHERITANCE = function (state, { inheritance }) {
+  state.inheritance = inheritance
+}
+
 export const SET_TYPE = function (state, { type }) {
   state.type = type
 }

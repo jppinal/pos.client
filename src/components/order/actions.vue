@@ -5,11 +5,11 @@
     round
     color="green"
     icon="assignment turned in"
-    @click="$router.push('/ticket')")
+    @click="$router.push('/mobile/ticket')")
   q-btn.fixed(
     round
     color="primary"
-    @click="$router.push('/products')"
+    @click="$router.push('/mobile/products')"
     style="right: 18px; bottom: 18px"
     icon="add")
 </template>

@@ -117,8 +117,8 @@ export default {
     QSearch
   },
   methods: {
-    ...mapActions('products', ['fetch', 'save']),
-    ...mapActions('edit', ['addOption', 'removeOption']),
+    ...mapActions('productsDb', ['fetch', 'save']),
+    ...mapActions('productsEdit', ['addOption', 'removeOption']),
     availableOptions () {
       let blockedOptions = []
       if (this.family && this.family.options) blockedOptions = [ ...blockedOptions, ...this.family.options ]
@@ -133,14 +133,14 @@ export default {
     }
   },
   computed: {
-    ...mapState('products', {
+    ...mapState('productsDb', {
       optionList: state => state.options
     }),
-    ...mapState('edit', {
+    ...mapState('productsEdit', {
       properties: state => state.data.properties,
       options: state => state.data.options,
-      family: state => state.data.family,
-      group: state => state.data.group
+      family: state => state.inheritance.family,
+      group: state => state.inheritance.group
     })
   },
   data () {

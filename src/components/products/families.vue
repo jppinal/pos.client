@@ -1,11 +1,11 @@
 <template lang="pug">
-.row(align="justify" inverted two-lines)
-  .on-left(v-for="(f,index) in families")
+.row.content-between.justify-between.items-center.sm-gutter
+  .on-left(v-for="(f,index) in familiesbyCollection(collection)")
     q-btn(
       v-if="f.id!=family.id"
       :color="f.properties.color"
       :key="index"
-      @click="select({ id: f.id, type: 'families' })")
+      @click="select({ family: f, type: 'families' })")
       q-icon.on-left(:name="f.properties.icon")
       .uppercase {{ f.properties.label }}
     q-btn(
@@ -13,7 +13,7 @@
       flat
       :color="f.properties.color"
       :key="index"
-      @click="select({ id: f.id, type: 'families' })")
+      @click="select({ family: f, type: 'families' })")
       q-icon.on-left(:name="f.properties.icon")
       .uppercase {{ f.properties.label }}
 </template>
@@ -24,33 +24,32 @@ import {
   QIcon
 } from 'quasar'
 
-import { mapActions, mapState } from 'vuex'
+import { mapActions, mapState, mapGetters } from 'vuex'
 
 export default {
   name: 'families',
+  props: [ 'collection' ],
   components: {
     QBtn,
     QIcon
   },
-  created () {
-    this.fetch({ type: 'collections' })
-  },
   methods: {
-    ...mapActions('products', ['fetchOne', 'fetch', 'fetchArray']),
-    select ({ id, type }) {
-      this.fetchOne({ id, type }).then((resolve) => {
-        this.fetch({ type: 'groups', body: { family_id: id } }).then((response) => {
-          this.fetchArray({ type: 'groups', array: this.groups })
-        })
+    ...mapActions('products', ['fetch', 'setFamily']),
+    select ({ family, type }) {
+      this.setFamily({ family }).then(() => {
+        this.fetch({ type: 'groups', family: family.id })
+        this.fetch({ type: 'products', family: family.id })
       })
     }
   },
   computed: {
     ...mapState('products', {
       families: state => state.families,
-      family: state => state.family,
-      groups: state => state.groups
-    })
+      family: state => state.family
+    }),
+    ...mapGetters('products', [
+      'familiesbyCollection'
+    ])
   }
 }
 </script>

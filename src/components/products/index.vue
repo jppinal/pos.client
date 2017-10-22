@@ -5,14 +5,18 @@
       q-tabs(color="dark" align="justify" no-pane-border)
         q-tab(
           :icon="c.properties.icon"
-          :name="c.properties.label"
+          :name="c.id"
           slot="title"
           :label="c.properties.label"
           v-for="(c,index) in collections"
-          @select="select({ id: c.id, type: 'collections' })"
+          @click="setFamily({ family: {} })"
           :key="index")
-  .row.full-width(style="padding: 10px;")
-    families
+        q-tab-pane(
+          :name="c.id"
+          v-for="(c,index) in collections"
+          :key="index")
+          .row.full-width
+            families(:collection="c.id")
   .row.full-width
     products
 </template>
@@ -30,7 +34,7 @@ import Products from './products'
 import { mapActions, mapState } from 'vuex'
 
 export default {
-  name: 'sales',
+  name: 'products-component',
   components: {
     QTabs,
     QTab,
@@ -38,25 +42,16 @@ export default {
     Families,
     Products
   },
+  created () {
+    console.log('created')
+    this.fetch({ type: 'collections' })
+    this.fetch({ type: 'families' })
+  },
   methods: {
-    ...mapActions('products', ['fetch', 'fetchOne', 'fetchArray']),
-    select ({ id, type }) {
-      this.fetchOne({ id, type }).then((resolve) => {
-        this.fetch({ type: 'families', body: { collection_id: id } }).then((response) => {
-          let f = this.family[0]
-          if (!f) return
-          this.fetch({ type: 'groups', body: { family_id: f.id } }).then((response) => {
-            this.fetchArray({ type: 'groups', array: this.groups })
-          })
-        })
-      })
-    }
+    ...mapActions('products', ['fetch', 'setFamily'])
   },
   computed: {
     ...mapState('products', {
-      family: state => state.family,
-      groups: state => state.groups,
-      collection: state => state.collection,
       collections: state => state.collections
     })
   },

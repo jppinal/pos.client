@@ -52,7 +52,7 @@ export default {
     QModal
   },
   methods: {
-    ...mapActions('edit', ['setColor']),
+    ...mapActions('productsEdit', ['setColor']),
     changeColor (color) {
       this.setColor({ color })
       this.$refs.iconModal.close()
@@ -69,7 +69,7 @@ export default {
     }
   },
   computed: {
-    ...mapState('edit', {
+    ...mapState('productsEdit', {
       properties: state => state.data.properties
     })
   },

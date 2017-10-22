@@ -4,6 +4,14 @@
     .row(style="padding:10px")
       .uppercase.text-grey-7.thin-paragraph Grupos de la familia
         strong.on-right {{ family.properties.label }}
+    .row
+      q-btn.full-width(
+        style="padding: 10px; margin: 5px"
+        icon="add"
+        color="pink"
+        @click="empty({ type: 'groups', body: { family: family.id, collection: family.collection } })"
+        small
+        flat) Nuevo Grupo
     .row(
       v-for="(g, index) in groups"
       :key="index"
@@ -11,24 +19,31 @@
       style="padding: 10px;"
       v-if="g.properties"
       )
-      .col-sm-2
-        q-btn(:icon="g.icon" flat disable small) {{ g.properties.label }}
-      .col-sm-10
+      .col-3
+        q-btn(:icon="g.icon" flat
+        @click="select({ id: g.id, type:'groups' })") {{ g.properties.label }}
+      .col-9
         q-btn.on-left(
           v-for="(p, index) in productsbyGroup(g.id)"
           flat
           :key="index"
           :class="p.properties.css"
-          @click="select(p, g.options)")
+          @click="select({ id: p.id, type:'products' })")
           span {{ p.properties.label }}
           small.on-right(v-if="p.properties.price") {{ p.properties.price.value.toFixed(2) }} {{ p.properties.price.currency }}
+        q-btn(
+          style="padding: 10px; margin: 5px"
+          icon="add"
+          color="pink"
+          @click="empty({ type: 'products', body: { family: family.id, collection: family.collection, group: g.id } })"
+          round
+          small)
 </template>
 
 <script>
 import {
   QBtn,
-  QIcon,
-  Events
+  QIcon
 } from 'quasar'
 
 import { mapActions, mapState, mapGetters } from 'vuex'
@@ -40,26 +55,18 @@ export default {
     QIcon
   },
   methods: {
-    ...mapActions('line', ['setLine']),
-    select ({ properties, options }, groupOptions) {
-      var line = Object.assign({}, properties)
-      line.options = []
-      if (options) line.options = options
-      if (groupOptions) line.options = [ ...groupOptions, ...line.options ]
-      if (this.family.options) line.options = [ ...this.family.options, ...line.options ]
-      line.color = this.family.properties.color
-      line.icon = this.family.properties.icon
-      this.setLine({ line }).then((resolve) => {
-        Events.$emit('openLineModal', { action: 'create' })
-      })
+    ...mapActions('productsDb', ['fetch']),
+    ...mapActions('productsEdit', ['empty', 'edit']),
+    select ({ id, type }) {
+      this.edit({ body: { id }, type })
     }
   },
   computed: {
-    ...mapState('products', {
+    ...mapState('productsDb', {
       groups: state => state.groups,
       family: state => state.family
     }),
-    ...mapGetters('products', [
+    ...mapGetters('productsDb', [
       'productsbyGroup'
     ])
   }

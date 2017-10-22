@@ -10,10 +10,11 @@ import line from './line'
 import ticket from './ticket'
 import order from './order'
 import products from './products'
-import edit from './edit'
+import productsEdit from './products-edit'
+import productsDb from './products-db'
 
 export default function () {
   return new Vuex.Store({
-    modules: { line, ticket, order, products, edit }
+    modules: { line, ticket, order, products, productsEdit, productsDb }
   })
 }

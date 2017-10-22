@@ -6,9 +6,12 @@ export default {
   namespaced: true,
   state () {
     return {
-      data: {},
-      type: '',
-      option: {}
+      options: [],
+      products: [],
+      groups: [],
+      families: [],
+      collections: [],
+      family: {}
     }
   },
   getters,

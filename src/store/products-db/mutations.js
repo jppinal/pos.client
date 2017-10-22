@@ -1,3 +1,7 @@
+export const SET_OPTIONS = function (state, { data }) {
+  state.options = data
+}
+
 export const SET_PRODUCTS = function (state, { data }) {
   state.products = data
 }

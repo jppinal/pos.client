@@ -12,8 +12,7 @@
           @click="editLine({ line: l })"
           :class="highlight(i)")
           q-item-side
-            big.light-paragraph.text-right.text-black
-              .on-left {{ l.quantity.value }}
+            q-chip(:color="l.color" small)
           q-item-main
             .row
               .uppercase {{ l.ticket }}
@@ -21,11 +20,11 @@
               small.uppercase(
                 v-for="(o, oi) in activeOptions(l)"
                 :key="oi"
-                style="margin:1px 2px")
+                style="margin:1px 2px; padding:1px 6px;")
                 span(:class="colortext(o.color)") {{ o.label }}
-          q-item-side(right)
-            span {{ l.total.value.toFixed(2) }}
-              small.on-right {{ l.total.currency }}
+          q-item-side
+            .full-width.text-center
+              big.light-paragraph.text-black {{ l.quantity.value }}
 </template>
 
 <script>

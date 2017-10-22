@@ -18,6 +18,11 @@ function desktop (component) {
   return () => System.import(`src/desktop/${component}.vue`)
 }
 
+function edit (component) {
+  // '@' is aliased to src/components
+  return () => System.import(`src/edit/${component}.vue`)
+}
+
 function requireAuth (to, from, next) {
   /* if (localStorage.getItem('feathers-jwt') === null) {
     next({
@@ -52,21 +57,29 @@ export default new VueRouter({
   routes: [
     {
       path: '/',
-      component: load('main/layout'),
+      component: desktop('layout'),
       children: [
-        {path: 'ticket', component: mobile('ticket')},
         {path: 'shopfloor', component: desktop('shopfloor')},
-        {path: 'order', component: mobile('order')},
         {path: 'orderpanel', component: desktop('order')}
       ],
       beforeEnter: requireAuth
     },
     {
-      path: '/edit',
-      component: load('edit/layout'),
+      path: '/mobile',
+      component: mobile('layout'),
       children: [
-        {path: 'products', component: load('edit/products/index')},
-        {path: 'options', component: load('edit/options/index')}
+        {path: 'ticket', component: mobile('ticket')},
+        {path: 'order', component: mobile('order')},
+        {path: 'products', component: mobile('products')}
+      ],
+      beforeEnter: requireAuth
+    },
+    {
+      path: '/edit',
+      component: edit('layout'),
+      children: [
+        {path: 'products', component: edit('products/index')},
+        {path: 'options', component: edit('options/index')}
       ],
       beforeEnter: requireAuth
     },

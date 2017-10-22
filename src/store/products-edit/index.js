@@ -6,11 +6,9 @@ export default {
   namespaced: true,
   state () {
     return {
-      products: [],
-      groups: [],
-      families: [],
-      collections: [],
-      family: {}
+      data: {},
+      type: '',
+      inheritance: {}
     }
   },
   getters,

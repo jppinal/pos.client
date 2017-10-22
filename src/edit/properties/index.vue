@@ -77,11 +77,11 @@ export default {
     Options
   },
   methods: {
-    ...mapActions('products', ['save', 'fetch', 'deleteOne']),
-    ...mapActions('edit', ['clear']),
+    ...mapActions('productsDb', ['save', 'deleteOne']),
+    ...mapActions('productsEdit', ['clear']),
     saveData ({ body, type }) {
       this.save({ body, type }).then((resolve) => {
-        Events.$emit(type)
+        Events.$emit(type, body)
         this.clear()
       })
     },
@@ -103,7 +103,7 @@ export default {
     }
   },
   computed: {
-    ...mapState('edit', {
+    ...mapState('productsEdit', {
       body: state => state.data,
       id: state => state.data.id,
       properties: state => state.data.properties,

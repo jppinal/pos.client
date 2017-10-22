@@ -53,7 +53,7 @@ export default {
     }
   },
   computed: {
-    ...mapState('edit', {
+    ...mapState('productsEdit', {
       properties: state => state.data.properties
     })
   },

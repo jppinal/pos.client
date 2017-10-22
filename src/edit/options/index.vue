@@ -63,19 +63,17 @@ export default {
     this.$q.events.$off('options', this.oHandler)
   },
   methods: {
-    ...mapActions('products', ['fetch', 'fetchOne', 'save']),
-    ...mapActions('edit', ['empty', 'setData']),
+    ...mapActions('productsDb', ['fetch', 'fetchOne', 'save']),
+    ...mapActions('productsEdit', ['empty', 'edit']),
     newOption () {
       this.empty({ type: 'options' })
     },
     select ({ id, type }) {
-      this.fetchOne({ id, type }).then((resolve) => {
-        this.setData({ data: this.option, type })
-      })
+      this.edit({ body: { id }, type })
     }
   },
   computed: {
-    ...mapState('products', {
+    ...mapState('productsDb', {
       option: state => state.option,
       options: state => state.options
     })

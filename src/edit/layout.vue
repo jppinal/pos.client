@@ -18,7 +18,7 @@
         q-item-side
           q-item-tile(label) John Doe
           q-item-tile(sublabel) Administrator
-      q-side-link(item to="/edit/floors" exact)
+      q-side-link(item to="/edit/rooms" exact)
         q-item-side(icon="chat_bubble")
         q-item-main(label="Editar Salones")
       q-side-link(item to="/edit/products" exact)

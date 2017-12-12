@@ -6,9 +6,7 @@ export default {
   namespaced: true,
   state () {
     return {
-      floors: [],
-      tables: [],
-      ticket: []
+      tables: []
     }
   },
   getters,

@@ -1,6 +1,6 @@
 {
   "name": "quasar-app",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A Quasar App",
   "author": "Your Name",
   "scripts": {
@@ -16,6 +16,7 @@
     "pug": "^2.0.0-rc.2",
     "quasar-extras": "0.x",
     "quasar-framework": "git+https://git@github.com/quasarframework/quasar-edge.git",
+    "socket.io-client": "^2.0.4",
     "uuid": "^3.1.0",
     "vue": "^2.3.0",
     "vue-router": "^2.0.0",
@@ -27,7 +28,7 @@
     "babel-eslint": "^7.0.0",
     "babel-loader": "^7.0.0",
     "babel-plugin-transform-runtime": "^6.0.0",
-    "babel-preset-es2015": "^6.0.0",
+    "babel-preset-env": "^1.6.1",
     "babel-preset-stage-2": "^6.0.0",
     "colors": "^1.1.2",
     "connect-history-api-fallback": "^1.1.0",

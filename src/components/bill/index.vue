@@ -39,7 +39,7 @@ import {
   Events
 } from 'quasar'
 
-import { mapActions, mapState } from 'vuex'
+import { mapState } from 'vuex'
 
 export default {
   name: 'lines',
@@ -53,33 +53,16 @@ export default {
     QScrollArea
   },
   methods: {
-    ...mapActions('salesTicket', ['selectLine', 'upWards', 'downWards', 'removeLine']),
-    ...mapActions('salesLine', ['setLine']),
     editLine ({ index }) {
       this.setLine({ line: this.lines[index] }).then((resolve) => {
         Events.$emit('openLineModal', { action: 'update' })
       })
-    },
-    highlight (i) {
-      return {
-        'bg-teal-2': i === Number(this.index)
-      }
-    },
-    chargeOptions (l) {
-      return l.options.filter((option) => {
-        // return option.value.charge
-      })
-    },
-    noChargeOptions (l) {
-      return l.options.filter((option) => {
-        // return !option.value.charge
-      })
     }
   },
   computed: {
-    ...mapState('salesTicket', {
-      lines: state => state.lines,
-      index: state => state.index
+    ...mapState('bill', {
+      tables: state => state.tables,
+      orders: state => state.orders
     })
   }
 }

@@ -12,9 +12,20 @@ import order from './order'
 import products from './products'
 import productsEdit from './products-edit'
 import productsDb from './products-db'
+import rooms from './rooms'
+import tables from './tables'
 
 export default function () {
   return new Vuex.Store({
-    modules: { line, ticket, order, products, productsEdit, productsDb }
+    modules: {
+      line,
+      ticket,
+      order,
+      products,
+      productsEdit,
+      productsDb,
+      rooms,
+      tables
+    }
   })
 }

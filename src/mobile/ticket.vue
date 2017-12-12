@@ -5,8 +5,8 @@
 </template>
 
 <script>
-import Lines from './../components/ticket/lines'
-import Actions from './../components/ticket/actions'
+import Lines from './../components/bill/index'
+import Actions from './../components/bill/actions'
 
 export default {
   name: 'mobile-ticket',

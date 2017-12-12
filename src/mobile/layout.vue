@@ -8,7 +8,7 @@
     color="dark"
     )
       q-toolbar-title(:padding="1") D'Fabula
-        span(slot="subtitle") Terminal Punto de Venta 1
+        span(slot="subtitle") Dispositivo Movil
       q-btn(flat @click="$refs.layout.toggleRight()")
         q-icon(name="assignment")
 

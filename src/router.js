@@ -79,7 +79,8 @@ export default new VueRouter({
       component: edit('layout'),
       children: [
         {path: 'products', component: edit('products/index')},
-        {path: 'options', component: edit('options/index')}
+        {path: 'options', component: edit('options/index')},
+        {path: 'rooms', component: edit('rooms/index')}
       ],
       beforeEnter: requireAuth
     },

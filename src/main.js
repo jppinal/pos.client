@@ -18,6 +18,7 @@ import 'quasar-extras/fontawesome'
 import 'quasar-extras/ionicons'
 
 import { load } from './api/local'
+load()
 
 Vue.config.productionTip = false
 
@@ -34,14 +35,12 @@ import 'quasar-extras/material-icons'
 
 import store from './store'
 
-load().then(() => {
-  Quasar.start(() => {
-    /* eslint-disable no-new */
-    new Vue({
-      el: '#q-app',
-      router,
-      store: store(),
-      render: h => h(require('./App'))
-    })
+Quasar.start(() => {
+  /* eslint-disable no-new */
+  new Vue({
+    el: '#q-app',
+    router,
+    store: store(),
+    render: h => h(require('./App'))
   })
 })
